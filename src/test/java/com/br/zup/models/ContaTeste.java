@@ -26,6 +26,11 @@ public class ContaTeste {
 	}
 	
 	@Test
+	public void testarCriacaoConta() {
+		assertEquals("6666 - Banco com Dinheiros", conta.getBanco());
+	}
+	
+	@Test
 	public void testarDepositarContaCorrente() {
 		conta.depositarContaCorrente(100D);
 		assertEquals(200D, conta.getSaldoContaCorrente(), 0D);

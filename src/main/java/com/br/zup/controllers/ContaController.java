@@ -16,7 +16,7 @@ public class ContaController {
 	
 	@GetMapping
 	public ResponseEntity<?> pegarContas() {
-		if( contaService.count() == 0) {
+		if(contaService.count() == 0) {
 			return ResponseEntity.noContent().build();
 		}
 		
