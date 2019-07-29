@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -68,7 +69,28 @@ public class ContaControllerTeste {
 						.andExpect(status().isNoContent());
 	}
 	
-	public static String comoJson(final Object obj) {
+	@Test
+	public void testarCriarConta() throws Exception {
+		conta.setId(10);
+		given(contaService.save(conta)).willReturn(conta);
+		
+		this.mockMvc.perform(
+				post("/api/conta")
+					.content(transformarEmJson(conta))
+					.contentType(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+				)
+				.andExpect(status().isCreated())
+				.andExpect(jsonPath("$.id").value(10));
+	}
+	
+	@Test
+	public void testarApagarConta() throws Exception {
+		this.mockMvc.perform(delete("/api/conta/{id}", 2))
+						.andExpect(status().isAccepted());
+	}
+	
+	public static String transformarEmJson(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
 		}

@@ -15,6 +15,14 @@ public class ContaService {
 		return contaRepository.findAll();
 	}
 	
+	public Conta save(Conta conta) {
+		return contaRepository.save(conta);
+	}
+	
+	public void deleteById(int id) {
+		contaRepository.deleteById(id);
+	}
+	
 	public long count() {
 		return contaRepository.count();
 	}
